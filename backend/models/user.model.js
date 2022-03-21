@@ -35,7 +35,7 @@ const userModel = db.define('user', {
 
     image : {
         type : DataTypes.STRING,
-        defaultValue : './uploads/profil/basicUser.png',
+        defaultValue : './uploads/basicUser.png',
     }
 })
 

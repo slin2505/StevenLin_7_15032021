@@ -1,17 +1,13 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/db');
 const User = require('./user.model');
+const Post = require('./post.model');
 
-const postModel = db.define('post', {
+const commentModel = db.define('comment', {
     id : {
         type : DataTypes.INTEGER,
         primaryKey : true,
         autoIncrement : true,
-        allowNull : false
-    },
-    
-    title : {
-        type : DataTypes.STRING,
         allowNull : false
     },
 
@@ -20,12 +16,13 @@ const postModel = db.define('post', {
         allowNull : false
     },
 
-    upload : {
+    image : {
         type : DataTypes.STRING,
         allowNull : true
     },
 });
 
-postModel.belongsTo(User);
+commentModel.belongsTo(User);
+commentModel.belongsTo(Post);
 
-module.exports = postModel;
+module.exports = commentModel;

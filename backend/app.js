@@ -26,7 +26,7 @@ app.get('/jwtid', requireAuth, (req, res) =>{
 });
 
 // Dossier Image
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
 app.use('/api/user', userRoutes);
