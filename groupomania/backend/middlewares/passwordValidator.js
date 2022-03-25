@@ -14,9 +14,9 @@ passwordSchema
 
 // Vérification du password s'il correspond aux attentes du modèle
 module.exports.ctrl = (req, res,next) =>{
-    if(passwordSchema.validate(req.body.password)){
+    if(!req.body.password || passwordSchema.validate(req.body.password)){       
         next()
     } else{
         return res.status(400).json({error : passwordSchema.validate(req.body.password, { details : true })})
-    }
+    };
 };

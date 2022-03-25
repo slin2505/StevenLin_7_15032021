@@ -10,8 +10,8 @@ exports.register = (req, res) =>{
         .then(hash =>{
             const newUser = {
                 email: req.body.email,
-                nom : req.body.nom,
-                prenom : req.body.prenom,
+                last_name : req.body.lastName,
+                first_name : req.body.firstName,
                 password : hash
             };
             
@@ -56,6 +56,6 @@ exports.login = (req, res) =>{
 };
 
 exports.logout = (req, res) =>{
-    res.cookie('jwt', '', {maxAge : 1});
-    res.redirect('/');
+    res.clearCookie('jwt');
+    res.status(200).json('OUT');
 };

@@ -8,7 +8,7 @@ module.exports.checkUser = (req, res, next) =>{
        jwt.verify(token, process.env.PASSWORDTOKEN, async(err, decodedToken) =>{
            if (err){
                res.locals.user = null;
-               res.cookie('jwt', '', { maxAge : 1});
+               res.clearCookie('jwt');
                next();
            } else{
                let user = await User.findByPk(decodedToken.userId);

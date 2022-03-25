@@ -26,6 +26,6 @@ const postModel = db.define('post', {
     },
 });
 
-postModel.belongsTo(User);
+postModel.belongsTo(User, {foreignKey : 'user_id'});
 
 module.exports = postModel;

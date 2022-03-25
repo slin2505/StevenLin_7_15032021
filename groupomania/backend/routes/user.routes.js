@@ -13,7 +13,7 @@ router.get('/logout', authCtrl.logout);
 // CRUD User
 router.get('/', userCtrl.getAllUsers);
 router.get('/:id', userCtrl.getOneUser);
-router.put('/:id', passwordValidator.ctrl, multer, userCtrl.updateUser);
+router.put('/:id', multer,  passwordValidator.ctrl, userCtrl.updateUser);
 router.delete('/:id', userCtrl.deleteUser);
 
 module.exports = router;

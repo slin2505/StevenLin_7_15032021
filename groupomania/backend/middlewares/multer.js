@@ -1,4 +1,5 @@
 const multer = require('multer');
+const path = require('path');
 
 // types de fichier image
 const MIME_TYPES = {
@@ -16,9 +17,9 @@ const storage = multer.diskStorage({
     },
 
     filename: (req, file, callback) =>{
-        const name = file.originalname.split(" ").join("_");
+        const name = path.basename(file.originalname, path.extname(file.originalname)).split(" ").join("_");
         const extension = MIME_TYPES[file.mimetype]
-        callback(null, name + Date.now() + "." + extension);
+        callback(null, name + Date.now() + "." + extension);    
     }
 });
 

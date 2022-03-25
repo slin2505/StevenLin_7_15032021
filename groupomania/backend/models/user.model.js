@@ -16,13 +16,13 @@ const userModel = db.define('user', {
         allowNull : false
     },
 
-    nom : {
+    last_name : {
         type : DataTypes.STRING,
         validate : {isAlpha : true},
         allowNull : false,
     },
 
-    prenom : {
+    first_name : {
         type : DataTypes.STRING,
         validate : {isAlpha : true},
         allowNull : false,
@@ -33,9 +33,9 @@ const userModel = db.define('user', {
         allowNull : false,
     },
 
-    image : {
+    upload : {
         type : DataTypes.STRING,
-        defaultValue : './uploads/basicUser.png',
+        defaultValue : './uploads/basicUser.jpg',
     }
 })
 

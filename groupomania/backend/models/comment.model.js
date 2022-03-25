@@ -16,13 +16,13 @@ const commentModel = db.define('comment', {
         allowNull : false
     },
 
-    image : {
+    upload : {
         type : DataTypes.STRING,
         allowNull : true
     },
 });
 
-commentModel.belongsTo(User);
-commentModel.belongsTo(Post);
+commentModel.belongsTo(User, {foreignKey : 'user_id'});
+commentModel.belongsTo(Post, {foreignKey : 'post_id'});
 
 module.exports = commentModel;
