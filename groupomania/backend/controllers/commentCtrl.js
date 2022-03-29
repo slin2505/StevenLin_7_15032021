@@ -1,8 +1,8 @@
 const Comment = require('../models/comment.model');
 const fs = require('fs');
 
-exports.readComment = (req, res) =>{
-    Comment.findAll()
+exports.readPostComment = (req, res) =>{
+    Comment.findAll({where : {post_id : req.body.postId}})
         .then(comment => res.status(200).json(comment))
         .catch(err => res.status(400).json(err))
 };
@@ -40,7 +40,7 @@ exports.updateComment = (req, res) =>{
             upload : commentUpload
         }
 
-        Comment.findOne({where : {id : req.params.id}})
+        Comment.findOne({where : {id : req.body.commentId}})
             .then(comment =>{
                 if(fs.existsSync(comment.upload)){
                     fs.unlink(comment.upload, () => {});   
@@ -53,13 +53,13 @@ exports.updateComment = (req, res) =>{
         }
     };
 
-    Comment.update(commentUpdate, {where : {id : req.params.id}})
+    Comment.update(commentUpdate, {where : {id : req.body.commentId}})
         .then(() => res.status(200).json({message : "Commentaire mise à jour."}))
         .catch(err => res.status(400).json({err}));
 };
 
 exports.deleteComment = (req, res) =>{
-    Comment.findOne({where : {id : req.params.id}})
+    Comment.findOne({where : {id : req.body.commentId}})
     .then(comment =>{
         if(!comment){
             return res.status(404).json({msg : 'Commentaire introuvable'});
@@ -67,7 +67,7 @@ exports.deleteComment = (req, res) =>{
         if(fs.existsSync(comment.upload)){
             fs.unlink(comment.upload, () =>{});   
         };
-        Comment.destroy({where : {id : req.params.id}})
+        Comment.destroy({where : {id : req.body.commentId}})
             .then(() => res.status(200).json({message : "Commentaire supprimé."}))
             .catch(err => res.status(400).json({err}));
     })
