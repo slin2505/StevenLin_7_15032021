@@ -4,15 +4,15 @@ import { uploadPicture } from '../../actions/user.actions';
 
 const UploadImg = () => {
     const [file, setFile] = useState('');
-    const dispatch = useDispatch;
+    const dispatch = useDispatch();
     const userData = useSelector((state) => state.userReducer);
 
     const handlePicture = (e) =>{
         e.preventDefault();
         const data = new FormData();
-        data.append('name', userData.first_name);
+        data.append('firstName', userData.first_name);
         data.append('userId', userData.id);
-        data.append('file', file);
+        data.append('upload', file);
 
         dispatch(uploadPicture(data, userData.id));
     };
@@ -28,3 +28,4 @@ const UploadImg = () => {
 };
 
 export default UploadImg;
+

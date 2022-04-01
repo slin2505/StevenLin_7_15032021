@@ -17,6 +17,7 @@ module.exports = (req, res, next) =>{
                 }
             })
     } catch (err) {
+        console.log(err)
         res.cookie("jwt", "", { maxAge: 1 });
         res.status(401).json({ message : 'Requête non authentifiée !'});
     };

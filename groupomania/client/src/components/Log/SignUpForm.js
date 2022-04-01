@@ -20,9 +20,25 @@ const SignUpForm = () => {
 
     const handleRegister = async (e) =>{
         e.preventDefault();
+        emailError.innerHTML = '';
+        firstNameError.innerHTML = '';
+        lastNameError.innerHTML = '';
+        passwordError.innerHTML = '';
         passwordConfirmError.innerHTML = '';
         termsError.innerHTML = '';
 
+        if (!email){
+            emailError.innerHTML = 'Le champ ne peut pas être vide'
+        }
+        if (!firstName){
+            firstNameError.innerHTML = 'Le champ ne peut pas être vide'
+        }
+        if (!lastName){
+            lastNameError.innerHTML = 'Le champ ne peut pas être vide'
+        }
+        if (!password){
+            passwordError.innerHTML = 'Le champ ne peut pas être vide'
+        }
         if (password !== controlPassword || !terms.checked){
             if (password !== controlPassword){
                 passwordConfirmError.innerHTML = 'Les mots de passe ne correspondent pas';
@@ -43,18 +59,14 @@ const SignUpForm = () => {
                     password : password,
                 },
             })
-                .then((res) =>{
-                    console.log(res.data)
-                    if (res.data.authErrors){
-                        firstNameError.innerHTML = res.data.authErrors.email;
-                        lastNameError.innerHTML = res.data.authErrors.email;
-                        emailError.innerHTML = res.data.authErrors.email;
-                        passwordError.innerHTML = res.data.authErrors.email;
-                    } else{
-                        setFormSubmit(true);
-                    };
-                })
-                .catch((err) => console.log(err));
+                .then((res) =>{setFormSubmit(true)})
+                .catch((err) => {
+                    console.log((err))
+                    firstNameError.innerHTML = err.authErrors.email;
+                    lastNameError.innerHTML = err.authErrors.email;
+                    emailError.innerHTML = err.authErrors.email;
+                    passwordError.innerHTML = err.authErrors.email;
+                });
         };
     };
 

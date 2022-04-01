@@ -6,25 +6,27 @@ import { useDispatch } from 'react-redux';
 import { getUser } from './actions/user.actions';
 
 const App = () => {
+    axios.defaults.withCredentials = true;
     const [uid, setUid] = useState(null);
     const dispatch = useDispatch();
-    
-    useEffect(() =>{
+
+     useEffect(() =>{
+       
         const fetchToken = async () => {
           await axios({
               method : 'get',
               url : 'http://localhost:3000/jwtid',
-              withCredentials : true,
           })
               .then((res) => setUid(res.data))
               .catch((err) => console.log("No token"));
         };
+
         fetchToken();
 
         if (uid){
           dispatch(getUser(uid))
         };
-    }, [uid]);
+    }, [uid, dispatch]); 
 
     return (
       <Uidcontext.Provider value={uid}>

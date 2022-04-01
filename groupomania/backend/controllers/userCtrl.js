@@ -12,7 +12,12 @@ exports.getAllUsers = (req, res) =>{
 // Récupère un utilisateur a partir d'un id
 exports.getOneUser = (req, res) =>{
     User.findOne({where : {id : req.params.id}, attributes: {exclude: ['password']}})
-        .then(user => res.status(200).json({user}))
+        .then(user => {
+            const imageUrl = user.upload
+            const newImageUrl = `${req.protocol}://${req.get('host')}/${imageUrl}`
+            user.upload = newImageUrl
+            res.status(200).json({user})
+        })
         .catch(err => res.status(404).json({err}))
 };
 
@@ -49,7 +54,7 @@ exports.updateUser = (req, res) =>{
     };
 
     // on hash le password si celle ci existe 
-    if(userProfile.password != undefined){
+    if(userProfile.password !== undefined){
         bcrypt.hash(req.body.password, 10)
             .then(hash =>{
                 userProfile.password = hash

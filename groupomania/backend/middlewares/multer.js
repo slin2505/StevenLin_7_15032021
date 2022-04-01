@@ -1,6 +1,8 @@
 const multer = require('multer');
 const path = require('path');
 
+const maxSize = 1 * 1024 * 1024;
+
 // types de fichier image
 const MIME_TYPES = {
     'image/jpg' : 'jpg',
@@ -23,4 +25,4 @@ const storage = multer.diskStorage({
     }
 });
 
-module.exports = multer({storage}).single("upload");
+module.exports = multer({storage, limits: { fileSize: maxSize }}).single("upload");

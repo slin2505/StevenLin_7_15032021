@@ -14,7 +14,6 @@ const Logout = () => {
         await axios({
             method : 'get',
             url : 'http://localhost:3000/api/user/logout',
-            withCredentials : true,
         })
             .then(() => removeCookie('jwt'))
             .catch((err) => console.log(err));
