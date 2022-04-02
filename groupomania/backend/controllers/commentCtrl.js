@@ -73,3 +73,9 @@ exports.deleteComment = (req, res) =>{
     })
     .catch(err => res.status(400).json({err}));
 };
+
+exports.countComment = (req,res) =>{
+    Comment.count({where : {post_id : req.params.id}})
+        .then(count => res.status(200).json({count}))
+        .catch(err => res.status(400).json({err}));
+};

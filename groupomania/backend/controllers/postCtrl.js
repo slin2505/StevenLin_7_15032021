@@ -6,14 +6,26 @@ const fs = require('fs');
 // Récupère tout les posts
 exports.readPost = (req, res) =>{
     Post.findAll()
-        .then(posts => res.status(200).json(posts))
+        .then(posts => {
+            posts.forEach(post =>{
+                const postUrl = post.upload;
+                const newPostUrl = `${req.protocol}://${req.get('host')}/${postUrl}`;
+                post.upload = newPostUrl;
+            });
+            res.status(200).json(posts);
+        })
         .catch(err => res.status(400).json(err))
 };
 
 // récupère un post avec son id
 exports.readOnePost = (req, res) =>{
     User.findOne({where : {id : req.params.id}})
-        .then(post => res.status(200).json({post}))
+        .then(post => {
+            const postUrl = post.upload;
+            const newPostUrl = `${req.protocol}://${req.get('host')}/${postUrl}`;
+            post.upload = newPostUrl;
+            res.status(200).json({post});
+        })
         .catch(err => res.status(404).json({err}))
 };
 
@@ -29,9 +41,9 @@ exports.createPost = (req, res) =>{
     // on créer le profile du post 
     const newPost = {
         user_id : req.body.userId,
-        title : req.body.title,
         content : req.body.content,
-        upload : postUpload
+        upload : postUpload,
+        video : req.body.video
     }
 
     Post.create(newPost)
@@ -50,9 +62,9 @@ exports.updatePost = (req, res) =>{
         //création de l'image et du profile post
         postUpload = `uploads/${req.file.filename}`;
         postUpdate = {
-            title : req.body.title,
             content : req.body.content,
-            upload : postUpload
+            video : req.body.video,
+            upload : postUpload,
         }
         
         // suppression de l'ancienne image si elle existe
@@ -65,8 +77,8 @@ exports.updatePost = (req, res) =>{
             .catch(err => res.status(400).json({err}));
     } else{
         postUpdate = {
-            title : req.body.title,
-            content : req.body.content
+            content : req.body.content,
+            video : req.body.video,
         }
     };
 

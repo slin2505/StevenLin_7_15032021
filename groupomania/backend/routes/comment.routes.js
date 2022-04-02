@@ -6,6 +6,7 @@ const multer = require('../middlewares/multer');
 
 router.get('/', auth, commentCtrl.readPostComment);
 router.get('/:id', auth, commentCtrl.readOneComment);
+router.get('/count/:id', auth, commentCtrl.countComment);
 router.post('/', auth, multer, commentCtrl.createComment);
 router.put('/', auth, multer, commentCtrl.updateComment);
 router.delete('/', auth, commentCtrl.deleteComment)

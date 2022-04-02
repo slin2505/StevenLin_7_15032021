@@ -9,11 +9,6 @@ const postModel = db.define('post', {
         autoIncrement : true,
         allowNull : false
     },
-    
-    title : {
-        type : DataTypes.STRING,
-        allowNull : false
-    },
 
     content : {
         type : DataTypes.TEXT,
@@ -23,6 +18,11 @@ const postModel = db.define('post', {
     upload : {
         type : DataTypes.STRING,
         allowNull : true
+    },
+
+    video : {
+        type : DataTypes.STRING,
+        allowNull : true,
     },
 });
 

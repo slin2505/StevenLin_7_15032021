@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateBio } from '../../actions/user.actions';
+import {  updateBio } from '../../actions/user.actions';
 import LeftNav from '../LeftNav';
 import UploadImg from './UploadImg';
 
@@ -19,8 +19,8 @@ const UpdateProfil = () => {
     const passwordConfirmError = document.querySelector(".password-confirm.error");
 
     const handleUpdate = (e) =>{
-        e.preventDefault();
 
+        //gestion erreur simple
         if (!firstName){
             firstNameError.innerHTML = 'Prenom incorrect'
         }
@@ -33,6 +33,7 @@ const UpdateProfil = () => {
             };
             passwordConfirmError.innerHTML = 'Les mots de passe ne correspondent pas';
         } else{
+            //création et envoie donnée vers l'action
             const data = new FormData();
             data.append('firstName', firstName);
             data.append('lastName', lastName);
@@ -40,6 +41,7 @@ const UpdateProfil = () => {
                 data.append('password', password)
             };
             dispatch(updateBio(data, userData.id))
+            window.location = '/';
         }
     };
     return (

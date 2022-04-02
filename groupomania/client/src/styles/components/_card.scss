@@ -16,11 +16,11 @@
     padding-top: 26px;
   }
 
-  .fa-spinner {
+  .card-loading {
     position: absolute;
     top: 40%;
-    left: 49%;
-    font-size: 1.5rem;
+    left: 30%;
+    font-size: 1.2rem;
     color: $color-1;
   }
 
@@ -53,6 +53,7 @@
       display: flex;
       justify-content: space-between;
       margin: 2px 0 4px;
+      min-height: 30px;
 
       @media screen and(max-width: 590px) {
         margin: 12px 0 14px;
@@ -104,6 +105,7 @@
 
       span {
         font-style: italic;
+        font-size: 1rem;
         font-family: $font-1;
 
         @media screen and(max-width: 440px) {

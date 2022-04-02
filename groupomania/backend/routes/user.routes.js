@@ -12,7 +12,7 @@ router.post('/login', authCtrl.login);
 router.get('/logout', authCtrl.logout);
 
 // CRUD User
-router.get('/', auth, userCtrl.getAllUsers);
+router.get('/', userCtrl.getAllUsers);
 router.get('/:id', auth, userCtrl.getOneUser);
 router.put('/:id', auth, multer,  passwordValidator.ctrl, userCtrl.updateUser);
 router.delete('/:id', auth, userCtrl.deleteUser);
