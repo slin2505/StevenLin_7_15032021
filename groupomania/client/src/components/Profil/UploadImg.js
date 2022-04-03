@@ -8,6 +8,7 @@ const UploadImg = () => {
     const userData = useSelector((state) => state.userReducer);
 
     const handlePicture = (e) =>{
+        e.preventDefault();
         //création et envoye des données vers l'action
         const data = new FormData();
         data.append('firstName', userData.first_name);

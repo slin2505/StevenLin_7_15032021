@@ -17,6 +17,6 @@ module.exports.ctrl = (req, res,next) =>{
     if(!req.body.password || passwordSchema.validate(req.body.password)){       
         next()
     } else{
-        return res.status(400).json({authErrors : 'Le mot de passe doit contenir au moins une majuscule, un chiffre et doit faire minimum 8 caractères'})
+        return res.status(400).json({authErrors : {password : 'Le mot de passe doit contenir au moins une majuscule, un chiffre et doit faire minimum 8 caractères'}})
     };
 };

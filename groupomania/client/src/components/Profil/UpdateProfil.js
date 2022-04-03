@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {  updateBio } from '../../actions/user.actions';
+import {  deleteUser, updateBio } from '../../actions/user.actions';
 import LeftNav from '../LeftNav';
 import UploadImg from './UploadImg';
 
@@ -8,8 +8,8 @@ const UpdateProfil = () => {
     const userData = useSelector((state) => state.userReducer);
     const dispatch = useDispatch();
 
-    const [firstName, setFirstName] = useState(`${userData.first_name}`);
-    const [lastName, setLastName] = useState(`${userData.last_name}`); 
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState(''); 
     const [password, setPassword] = useState('');
     const [controlPassword, setControlPassword] = useState('');
     
@@ -17,6 +17,15 @@ const UpdateProfil = () => {
     const lastNameError = document.querySelector(".lastName.error");
     const passwordError = document.querySelector(".password.error");
     const passwordConfirmError = document.querySelector(".password-confirm.error");
+
+    let dataFirstName = `${userData.first_name}`;
+    let dataLastName = `${userData.last_name}`;
+    useEffect(() =>{ 
+        if (userData !== undefined){
+            setFirstName(dataFirstName);
+            setLastName(dataLastName);
+        }
+    },[userData, dataFirstName, dataLastName]);
 
     const handleUpdate = (e) =>{
 
@@ -44,6 +53,13 @@ const UpdateProfil = () => {
             window.location = '/';
         }
     };
+
+    const handleDelete = () =>{
+        dispatch(deleteUser(userData.id))
+        window.location = '/';
+        window.location.reload();
+    }
+
     return (
         <div className='profil-container'>
             <LeftNav />
@@ -112,6 +128,11 @@ const UpdateProfil = () => {
                     </div> 
                 </div>
             </div>
+            <button onClick={() =>{
+                if (window.confirm('Voulez-vous supprimer votre compte ?')){
+                    handleDelete()
+                }
+            }} className='delete'>Suppression du compte</button>
         </div>
     );
 };

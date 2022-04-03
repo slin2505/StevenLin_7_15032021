@@ -5,12 +5,14 @@ const fs = require('fs');
 
 // Récupère tout les posts
 exports.readPost = (req, res) =>{
-    Post.findAll()
+    Post.findAll({order :[['id', 'DESC']]})
         .then(posts => {
             posts.forEach(post =>{
-                const postUrl = post.upload;
-                const newPostUrl = `${req.protocol}://${req.get('host')}/${postUrl}`;
-                post.upload = newPostUrl;
+                if (post.upload !== null){
+                    const postUrl = post.upload;
+                    const newPostUrl = `${req.protocol}://${req.get('host')}/${postUrl}`;
+                    post.upload = newPostUrl;
+                }
             });
             res.status(200).json(posts);
         })
@@ -21,9 +23,11 @@ exports.readPost = (req, res) =>{
 exports.readOnePost = (req, res) =>{
     User.findOne({where : {id : req.params.id}})
         .then(post => {
-            const postUrl = post.upload;
-            const newPostUrl = `${req.protocol}://${req.get('host')}/${postUrl}`;
-            post.upload = newPostUrl;
+            if (post.upload !== null){
+                const postUrl = post.upload;
+                const newPostUrl = `${req.protocol}://${req.get('host')}/${postUrl}`;
+                post.upload = newPostUrl;
+            };
             res.status(200).json({post});
         })
         .catch(err => res.status(404).json({err}))

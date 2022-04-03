@@ -10,12 +10,12 @@ const SignUpForm = () => {
     const [password, setPassword] = useState('');
     const [controlPassword, setControlPassword] = useState('');
 
-    const firstNameError = document.querySelector(".firstName.error");;
-    const lastNameError = document.querySelector(".lastName.error");;
+    const firstNameError = document.querySelector(".firstName.error");
+    const lastNameError = document.querySelector(".lastName.error");
     const emailError = document.querySelector(".email.error");
-    const passwordError = document.querySelector(".password.error");;
-    const passwordConfirmError = document.querySelector(".password-confirm.error");;
-    const termsError = document.querySelector(".terms.error");;
+    const passwordError = document.querySelector(".password.error");
+    const passwordConfirmError = document.querySelector(".password-confirm.error");
+    const termsError = document.querySelector(".terms.error");
     const terms = document.querySelector('#terms');
 
     const handleRegister = async (e) =>{
@@ -26,7 +26,7 @@ const SignUpForm = () => {
         passwordError.innerHTML = '';
         passwordConfirmError.innerHTML = '';
         termsError.innerHTML = '';
-
+        
         if (!email){
             emailError.innerHTML = 'Le champ ne peut pas être vide'
         }
@@ -61,11 +61,19 @@ const SignUpForm = () => {
             })
                 .then((res) =>{setFormSubmit(true)})
                 .catch((err) => {
-                    console.log((err))
-                    firstNameError.innerHTML = err.authErrors.email;
-                    lastNameError.innerHTML = err.authErrors.email;
-                    emailError.innerHTML = err.authErrors.email;
-                    passwordError.innerHTML = err.authErrors.email;
+                    const errors = err.response.data
+                    if (errors.authErrors.firstName){
+                        firstNameError.innerHTML = errors.authErrors.firstName;
+                    };
+                    if (errors.authErrors.lastName){
+                        firstNameError.innerHTML = errors.authErrors.lastName;
+                    };
+                    if (errors.authErrors.email){
+                        emailError.innerHTML = errors.authErrors.email;
+                    };
+                    if (errors.authErrors.password){
+                        passwordError.innerHTML = errors.authErrors.password;
+                    };
                 });
         };
     };

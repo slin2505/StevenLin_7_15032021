@@ -47,7 +47,7 @@ exports.updateUser = (req, res) =>{
         // avec fs on supprime l'ancienne image si celle ci existe
         User.findOne({where : {id : req.params.id}}, {attributes: {exclude: ['password']}})
             .then(user =>{
-                if(fs.existsSync(user.upload)){
+                if(fs.existsSync(user.upload && user.upload !== 'uploads/basicUser.png')){
                     fs.unlink(user.upload, () =>{});   
                 } 
             })
@@ -83,7 +83,7 @@ exports.deleteUser = (req,res) =>{
         if(!user){
             return res.status(404).json({msg : 'Utilisateur inconnu'});
         };
-        if(fs.existsSync(user.upload)){
+        if(fs.existsSync(user.upload && user.upload !== 'uploads/basicUser.png')){
             fs.unlink(user.upload, () =>{});   
         };
         User.destroy({where : {id : req.params.id}})

@@ -33,9 +33,14 @@ const userModel = db.define('user', {
         allowNull : false,
     },
 
+    is_admin : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : false,
+    },
+
     upload : {
         type : DataTypes.STRING,
-        defaultValue : './uploads/basicUser.jpg',
+        defaultValue : 'uploads/basicUser.png',
     }
 })
 

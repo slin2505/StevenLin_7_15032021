@@ -9,6 +9,8 @@ const SignInForm = () => {
 
     const handleLogin = (e) =>{
         e.preventDefault();
+        emailError.innerHTML = '';
+        passwordError.innerHTML = '';
         
         if (!email || !password){
             if (!email){
@@ -21,22 +23,22 @@ const SignInForm = () => {
             axios({
                 method : 'post',
                 url : 'http://localhost:3000/api/user/login',
-                withCredentials : true,
                 data : {
                     email : email,
                     password : password,
                 },
             })
-                .then((res) => {
-                    console.log(res.data)
-                    if (res.data.errors){
-                        emailError.innerHTML = res.data.error.email
-                        passwordError.innerHTML = res.data.error.password;
-                    } else{
-                        window.location = '/';
+                .then((res) => window.location = '/')
+                .catch((err) =>{
+                    const errors = err.response.data.error;
+                    console.log(errors)
+                    if (errors.email){
+                        emailError.innerHTML = errors.email;
                     }
-                })
-                .catch((err) => console.log(err));
+                    if (errors.password){
+                        passwordError.innerHTML = errors.password;
+                    }   
+                });
         };
     }
 

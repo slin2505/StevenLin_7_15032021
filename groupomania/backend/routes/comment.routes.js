@@ -8,7 +8,7 @@ router.get('/', auth, commentCtrl.readPostComment);
 router.get('/:id', auth, commentCtrl.readOneComment);
 router.get('/count/:id', auth, commentCtrl.countComment);
 router.post('/', auth, multer, commentCtrl.createComment);
-router.put('/', auth, multer, commentCtrl.updateComment);
-router.delete('/', auth, commentCtrl.deleteComment)
+router.put('/:id', auth, multer, commentCtrl.updateComment);
+router.delete('/:id', auth, commentCtrl.deleteComment)
 
 module.exports = router;

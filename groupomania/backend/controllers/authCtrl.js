@@ -18,7 +18,7 @@ exports.register = (req, res) =>{
                 .then(() => res.status(201).json({message : 'Compte crée'}))
                 .catch(err => {
                     const authErrors = registerErrors(err);
-                    res.status(400).json(authErrors);
+                    res.status(400).json({authErrors});
                 });
         })
         .catch(err => res.status(500).json({err}));
