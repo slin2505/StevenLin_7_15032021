@@ -6,4 +6,5 @@ nodemon server
 
 Frontend :
 
-ON HOLD
+npm install
+npm start

@@ -1,13 +1,14 @@
 module.exports.registerErrors = (err) =>{
+    console.log(err.errors)
     let errors = {lastName : '', firstName : '', email : '', password : ''};
 
     err.errors.map(e => {
-        if (e.message.includes('lastName')){
-            errors.nom = 'Nom incorrect';
+        if (e.message.includes('last_name')){
+            errors.lastName = 'Nom incorrect';
         };
     
-        if (e.message.includes('firstName')){
-            errors.prenom = 'Prenom incorrect';
+        if (e.message.includes('first_name')){
+            errors.firstName = 'Prenom incorrect';
         };
     
         if (e.message.includes('email')){

@@ -66,7 +66,7 @@ const SignUpForm = () => {
                         firstNameError.innerHTML = errors.authErrors.firstName;
                     };
                     if (errors.authErrors.lastName){
-                        firstNameError.innerHTML = errors.authErrors.lastName;
+                        lastNameError.innerHTML = errors.authErrors.lastName;
                     };
                     if (errors.authErrors.email){
                         emailError.innerHTML = errors.authErrors.email;
