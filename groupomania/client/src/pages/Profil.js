@@ -17,7 +17,7 @@ const Profil = () => {
                         <img src='./img/icon-above-font.svg' alt='img-log' />
                     </div>
                 </div>
-            )};
+            )}
         </div>
     );
 };

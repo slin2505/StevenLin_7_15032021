@@ -100,7 +100,7 @@ const UpdateProfil = () => {
                         <div className='lastName error'></div>
                         <br />
 
-                        <label htmlFor='password'>Mot de passe</label>
+                        <label htmlFor='password'>Modifier mot de passe</label>
                         <br />
                         <input 
                             type='password' 
